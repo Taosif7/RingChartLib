@@ -1,10 +1,10 @@
 package com.taosif7.android.ringchart;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ToggleButton;
 import android.widget.ViewSwitcher;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         MaterialButton BTN_animStart = findViewById(R.id.animationStartBtn);
         MaterialButton BTN_animStop = findViewById(R.id.animationStopBtn);
         final ViewSwitcher VS_chartHolder = findViewById(R.id.chart_holder);
+        ToggleButton TB_labels = findViewById(R.id.toggle_labels);
 
         // Prepare Data
         dataPoints.put("red", (float) Math.random());
@@ -92,6 +93,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 VS_chartHolder.showNext();
+            }
+        });
+
+        TB_labels.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                chart_concentric.showLabels(b);
+                chart_overlap.showLabels(b);
+                chart_concentric.stopAnimateLoading();
+                chart_overlap.stopAnimateLoading();
             }
         });
     }

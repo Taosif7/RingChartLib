@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:paddingBottom="20dp"
     android:theme="@style/Theme.MaterialComponents.DayNight">
 
     <RelativeLayout
@@ -47,8 +49,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/chart_holder"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Title"
@@ -74,10 +77,35 @@
 
         </LinearLayout>
 
-        <TableLayout
+        <LinearLayout
+            android:id="@+id/label_controls"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/anim_buttons"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Labels: " />
+
+            <androidx.appcompat.widget.AppCompatToggleButton
+                android:id="@+id/toggle_labels"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label_controls"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:paddingStart="20dp"

@@ -9,6 +9,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Property;
@@ -44,6 +45,7 @@ public class RingChart extends ViewGroup {
     // Properties
     private RingView backgroundRing;
     private renderMode mode = renderMode.MODE_OVERLAP;
+    private boolean showLabels = true;
 
     public RingChart(Context ctx) {
         super(ctx);
@@ -92,7 +94,8 @@ public class RingChart extends ViewGroup {
 
         // Add background ring if its overlap mode
         if (mode == renderMode.MODE_OVERLAP) {
-            backgroundRing = new RingView(getContext(), new RingChartData(1.0f, colorSecondary));
+            backgroundRing = new RingView(getContext(), new RingChartData(1.0f, colorSecondary, "BackgroundRing-Kwv0Tv1HrB"));
+            backgroundRing.setShouldDrawLabel(false);
             addView(backgroundRing);
         }
 
@@ -331,6 +334,10 @@ public class RingChart extends ViewGroup {
         this.mode = mode;
     }
 
+    public void showLabels(boolean showLabels) {
+        this.showLabels = showLabels;
+    }
+
     /**
      * Method to animate rings in indeterminate loading style
      */
@@ -457,9 +464,13 @@ public class RingChart extends ViewGroup {
      */
     protected class RingView extends View {
         private final RectF RingOval = new RectF();
+        private int labelAngleOffset;
+        private float labelSize;
+        private boolean shouldDrawLabel = true;
+        private Path labelCirclePath;
+        private int bgColor;
+        private Paint colorPaint, labelPaint;
         RingChartData data;
-        int bgColor;
-        Paint colorPaint;
         float headAngle, tailAngle = 0f;
 
         public RingView(Context ctx, RingChartData data) {
@@ -472,6 +483,7 @@ public class RingChart extends ViewGroup {
             this.colorPaint.setStrokeCap(Paint.Cap.ROUND);
             headAngle = (data.value * 360f);
             updateBgColor();
+            updateLabelPaint();
         }
 
         public void updateData(RingChartData ringData) {
@@ -488,18 +500,44 @@ public class RingChart extends ViewGroup {
                 canvas.drawArc(RingOval, 270f, 360f, false, colorPaint);
                 colorPaint.setColor(data.color);
             }
+
             canvas.drawArc(RingOval, 270f + tailAngle, headAngle, false, colorPaint);
+
+            // Draw label
+            if (showLabels && shouldDrawLabel) {
+                if (mode == renderMode.MODE_CONCENTRIC) {
+                    canvas.rotate(-92, RingOval.centerX(), RingOval.centerY());
+                } else {
+                    canvas.rotate((tailAngle + headAngle) - 90 - labelAngleOffset, RingOval.centerX(), RingOval.centerY());
+                }
+                canvas.drawTextOnPath(data.label, labelCirclePath, 0, (width * 0.4f) / 2, labelPaint);
+            }
         }
 
         @Override
         protected void onSizeChanged(int w, int h, int oldw, int oldh) {
             RingOval.set(width, width /*[SIC]*/, w - width, h - width);
             this.colorPaint.setStrokeWidth(width);
+            updateLabelPaint();
         }
 
         private void updateBgColor() {
             this.bgColor = ColorUtils.blendARGB(data.color, Color.BLACK, 0.4f);
             bgColor = ColorUtils.setAlphaComponent(bgColor, 30);
+        }
+
+        private void updateLabelPaint() {
+            labelPaint = new Paint();
+            labelPaint.setColor(Color.WHITE);
+            labelPaint.setTextSize(width * 0.7f);
+            labelCirclePath = new Path();
+            labelCirclePath.addCircle(RingOval.centerX(), RingOval.centerY(), RingOval.width() / 2f, Path.Direction.CW);
+            labelSize = labelPaint.measureText(data.label);
+            labelAngleOffset = (int) ((labelSize / (float) (Math.PI * RingOval.width())) * 360);
+        }
+
+        public void setShouldDrawLabel(boolean shouldDraw) {
+            this.shouldDrawLabel = shouldDraw;
         }
     }
 
