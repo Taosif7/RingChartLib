@@ -49,6 +49,11 @@ public class RingChart extends ViewGroup {
 
     public RingChart(Context ctx) {
         super(ctx);
+
+        // Load default colors
+        colorPrimary = ContextCompat.getColor(getContext(), R.color.primary);
+        colorSecondary = ContextCompat.getColor(getContext(), R.color.secondary);
+
         init();
     }
 
@@ -78,6 +83,9 @@ public class RingChart extends ViewGroup {
     }
 
     private void init() {
+
+        // Set a minimum height for this
+        setMinimumHeight(150);
 
         // Reset stuff
         RingViews.clear();
@@ -161,6 +169,50 @@ public class RingChart extends ViewGroup {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        int desiredWidth = 300;
+        int desiredHeight = 300;
+
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+        int width;
+        int height;
+
+        //Measure Width
+        if (widthMode == MeasureSpec.EXACTLY) {
+            //Must be this size
+            width = widthSize;
+        } else if (widthMode == MeasureSpec.AT_MOST) {
+            //Can't be smaller than...
+            width = Math.min(desiredWidth, widthSize);
+        } else {
+            //Be whatever you want
+            width = desiredWidth;
+        }
+
+        //Measure Height
+        if (heightMode == MeasureSpec.EXACTLY) {
+            //Must be this size
+            height = heightSize;
+        } else if (heightMode == MeasureSpec.AT_MOST) {
+            //Can't be smaller than...
+            height = Math.min(desiredHeight, heightSize);
+        } else {
+            //Be whatever you want
+            height = desiredHeight;
+        }
+
+        int finalSize = Math.max(width, height);
+
+        //MUST CALL THIS
+        setMeasuredDimension(finalSize, finalSize);
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
@@ -171,7 +223,7 @@ public class RingChart extends ViewGroup {
         // figure out how big the chart can be
         float ww = (float) w - xpad;
         float hh = (float) h - ypad;
-        float diameter = Math.min(ww, hh);
+        float diameter = Math.max(ww, hh);
 
         oval.set(0.f, 0.f, diameter, diameter);
         oval.offsetTo(getPaddingLeft(), getPaddingTop());
@@ -253,7 +305,8 @@ public class RingChart extends ViewGroup {
      */
     public void setData(@FloatRange(from = 0.0f, to = 1.0f) float percent) {
         List<RingChartData> dataPoints = new ArrayList<>();
-        dataPoints.add(new RingChartData(percent, colorPrimary, "RingChartSingleRing"));
+        dataPoints.add(new RingChartData(percent, colorPrimary, "Loading"));
+        showLabels(false);
         setLayoutMode(renderMode.MODE_OVERLAP);
         setData(dataPoints);
     }
