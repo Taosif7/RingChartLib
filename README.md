@@ -8,6 +8,8 @@
 A Library to create beautiful Ring Charts for your App.
 This library supports graceful seamless animations that can be stopped and played at any moment and it continues gracefully.
 
+Checkout Sample App on [Play Store](https://play.google.com/store/apps/details?id=com.taosif7.android.ringchart).
+
 - [Ring Chart Library](#ring-chart-library)
   - [Previews](#previews)
   - [Installation](#installation)
@@ -39,8 +41,6 @@ This library supports graceful seamless animations that can be stopped and playe
 
 ## Installation
 
----
-
 Add Jitpack to your project build.gralde file
 
 ```java
@@ -66,7 +66,7 @@ dependencies {
 
 ## Usage
 
----
+The full usage is implementated in [Sample App](app/src/main/java/com/taosif7/android/ringchart/MainActivity.java).
 
 Add the chart view to your XML file:
 
@@ -182,8 +182,6 @@ To show/hide labels, call `showLables(boolean)` on the ringChart Instance
 <br>
 
 ## License & Copyright
-
----
 
 © Taosif Jamal 2020
 
