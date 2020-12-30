@@ -1,12 +1,17 @@
 package com.taosif7.android.ringchart;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.ViewSwitcher;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -136,5 +141,21 @@ public class MainActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.label_blue)).setText(String.format("%d", (int) (dataPoints.get("blue") * 100)) + "%");
         ((TextView) findViewById(R.id.label_green)).setText(String.format("%d", (int) (dataPoints.get("green") * 100)) + "%");
         ((TextView) findViewById(R.id.label_yellow)).setText(String.format("%d", (int) (dataPoints.get("yellow") * 100)) + "%");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.github) {
+            // Open github repo
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Taosif7/RingChartLib"));
+            startActivity(browserIntent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

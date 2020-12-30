@@ -1,5 +1,12 @@
 
-# Table of Contents
+# Ring Chart Library
+
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Taosif7/RingChartLib)
+![GitHub](https://img.shields.io/github/license/Taosif7/RingChartLib?style=flat)
+![GitHub last commit](https://img.shields.io/github/last-commit/Taosif7/RingChartLib)
+
+A Library to create beautiful Ring Charts for your App.
+This library supports graceful seamless animations that can be stopped and played at any moment and it continues gracefully.
 
 - [Ring Chart Library](#ring-chart-library)
   - [Previews](#previews)
@@ -13,15 +20,6 @@
     - [Labels](#labels)
     - [Animations](#animations)
   - [License & Copyright](#license--copyright)
-
-# Ring Chart Library
-
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/Taosif7/RingChartLib)
-![GitHub](https://img.shields.io/github/license/Taosif7/RingChartLib?style=flat)
-![GitHub last commit](https://img.shields.io/github/last-commit/Taosif7/RingChartLib)
-
-A Library to create beautiful Ring Charts for your App.
-This library supports graceful seamless animations that can be stopped and played at any moment and it continues gracefully.
 
 <br>
 <br>
@@ -40,6 +38,8 @@ This library supports graceful seamless animations that can be stopped and playe
 <br>
 
 ## Installation
+
+---
 
 Add Jitpack to your project build.gralde file
 
@@ -66,13 +66,15 @@ dependencies {
 
 ## Usage
 
+---
+
 Add the chart view to your XML file:
 
 ```xml
 <com.taosif7.android.ringchartlib.RingChart
     android:id="@+id/ring_chart"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
+    android:layout_height="wrap_content"
     app:RingChartSecondaryColor="@color/colorChartBg" />
 ```
 
@@ -95,10 +97,6 @@ my_ringChart.setLasetLayoutMode(RingChart.renderMode.MODE_CONCENTRIC);
 ### Chart Types
 
 The currently supported two types of charts -- Concentric and Overlapping are shown in preview above. these two can be referenced from the enum [`RenderMode`](RingChartLib/src/main/java/com/taosif7/android/ringchartlib/RingChart.java#L513).
-
-###
-
-
 
 ### Adding Data to chart
 
@@ -184,6 +182,8 @@ To show/hide labels, call `showLables(boolean)` on the ringChart Instance
 <br>
 
 ## License & Copyright
+
+---
 
 © Taosif Jamal 2020
 
