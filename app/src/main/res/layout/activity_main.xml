@@ -14,22 +14,21 @@
         <ViewSwitcher
             android:id="@+id/chart_holder"
             android:layout_width="match_parent"
+            android:padding="40dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true">
 
             <com.taosif7.android.ringchartlib.RingChart
                 android:id="@+id/Chart_concentric"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:RingChartSecondaryColor="@color/colorUnselected" />
 
             <com.taosif7.android.ringchartlib.RingChart
                 android:id="@+id/Chart_overlap"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:scaleX="0.9"
-                android:scaleY="0.9"
+                android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:RingChartSecondaryColor="@color/colorUnselected" />
 
@@ -39,8 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/chart_holder"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
             android:text="Tap on the chart to change type"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
@@ -97,8 +96,7 @@
                 android:id="@+id/toggle_labels"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
