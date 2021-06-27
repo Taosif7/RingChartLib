@@ -91,7 +91,7 @@ Firstly reference the RingChart view in your activity and set the chart type
 RingChart chart_concentric = findViewById(R.id.ring_chart);
 
 // This method must be called before setting data
-my_ringChart.setLasetLayoutMode(RingChart.renderMode.MODE_CONCENTRIC);
+my_ringChart.setLayoutMode(RingChart.renderMode.MODE_CONCENTRIC);
 ```
 
 ### Chart Types
